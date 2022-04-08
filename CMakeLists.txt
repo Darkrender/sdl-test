@@ -8,6 +8,10 @@ add_executable(${PROJECT_NAME} src/main.cpp src/game.cpp)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# force SDL to build as a static library
+set( SDL_STATIC ON CACHE BOOL "" FORCE )
+set( SDL_SHARED OFF CACHE BOOL "" FORCE )
+
 # DOWNLOAD ALL THE SUBMODULES
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
@@ -30,6 +34,4 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/libs/SDL2/CMakeLists.txt")
 endif()
 
 add_subdirectory(libs/SDL2)
-target_include_directories(${PROJECT_NAME} PUBLIC src libs/SDL2/include)
-target_link_directories(${PROJECT_NAME} PRIVATE libs/SDL2)
-target_link_libraries(${PROJECT_NAME} SDL2)
+target_link_libraries(${PROJECT_NAME} SDL2main SDL2-static)
