@@ -1,6 +1,6 @@
 #include "game.h"
 #include <SDL.h>
-#include <iostream>
+#include <assert.h>
 
 bool Game::isRunning;
 
