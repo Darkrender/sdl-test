@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.23)
 
 project(SDLTest)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/game.cpp)
+
+# specify the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # DOWNLOAD ALL THE SUBMODULES
 find_package(Git QUIET)
@@ -26,6 +30,6 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/libs/SDL2/CMakeLists.txt")
 endif()
 
 add_subdirectory(libs/SDL2)
-target_include_directories(${PROJECT_NAME} PUBLIC libs/SDL2/include)
+target_include_directories(${PROJECT_NAME} PUBLIC src libs/SDL2/include)
 target_link_directories(${PROJECT_NAME} PRIVATE libs/SDL2)
 target_link_libraries(${PROJECT_NAME} SDL2)
